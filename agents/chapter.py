@@ -14,7 +14,13 @@ agent = Agent(role='Chapter', goal="Completar la tarea asignada.",
 
 
 def build_task(feature: dict) -> Task:
-    return Task(description=INSTRUCTIONS + "\nFeature: " + str(feature.get("title", ""))
-                + "\n" + str(feature.get("description", ""))
-                + "\n" + str(feature.get("acceptance_criteria", [])),
-                expected_output='Un informe con VEREDICTO: APROBADO o RECHAZADO.', agent=agent)
+    description = (INSTRUCTIONS + "\nFeature: " + str(feature.get("title", ""))
+                   + "\n" + str(feature.get("description", ""))
+                   + "\n" + str(feature.get("acceptance_criteria", [])))
+    return Task(
+        description=description,
+        expected_output="Un informe de revisión final con veredicto APROBADO, "
+        "APROBADO CON CONDICIONES o RECHAZADO, hallazgos sustentados en evidencia "
+        "y acciones pendientes verificables.",
+        agent=agent,
+    )
